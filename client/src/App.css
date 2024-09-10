@@ -1,0 +1,77 @@
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.user {
+  font-size: 15px;
+  color: white;
+}
+.logout {
+  color: white;
+  cursor: pointer;
+  border: 1px solid white;
+  padding: 5px;
+  border-radius: 15px;
+  align-self: center;
+  justify-self: center;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.nav-logo {
+  color: rgb(246, 182, 182);
+  font-size: 35px;
+  border: 1px solid rgb(203, 122, 122);
+  padding: 5px;
+  border-radius: 50%;
+  align-self: center;
+  cursor: pointer;
+}
+
+.navbar {
+  background-color: #333;
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border: 0;
+}
+
+.navbar-item {
+  color: pink;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item:hover {
+}
+
+.navbar-item:hover > .nav-link {
+  color: white;
+  border-bottom: 0;
+}
+
+.col {
+  flex-direction: column;
+  justify-content: space-between !important;
+}
+
+.homepage {
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}

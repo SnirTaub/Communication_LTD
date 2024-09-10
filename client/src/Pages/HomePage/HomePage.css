@@ -1,0 +1,11 @@
+.title {
+  color: white;
+  padding: 20px;
+}
+
+p,
+li {
+  color: aliceblue;
+  list-style: none;
+  font-size: 18px;
+}
