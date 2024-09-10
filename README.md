@@ -20,17 +20,13 @@ First, clone the repository to your local machine:
 ```bash
 git clone https://github.com/SnirTaub/Communication_LTD.git
 cd Communication_LTD
-```bash
 
 ### 2. Set Up the Server
-```bash
 cd server
 npm install
 npm run dev
-```bash
+
 ### 3. Set Up the Client
-```bash
 cd client
 npm install
 npm run dev
-```bash
