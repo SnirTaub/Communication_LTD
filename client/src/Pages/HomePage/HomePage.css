@@ -1,11 +1,72 @@
-.title {
-  color: white;
-  padding: 20px;
+
+.container-wrap {
+    background-color: #c0c0c0; /* צבע רקע אפור בהיר */
+} 
+    
+    .title {
+    color: #00a8cc; /* צבע כחול כהה */
+    padding: 20px;
+    margin-bottom: 2px; /* רווח בין פסקאות */
+    text-align: center;
 }
 
-p,
-li {
-  color: aliceblue;
-  list-style: none;
-  font-size: 18px;
+.about-us-paragraph {
+    color: #0044cc; /* צבע כחול בהיר */
+    font-size: 24px;
+    margin-bottom: 2px; /* רווח בין פסקאות */
+    text-align: center;
 }
+
+.contact-us-paragraph {
+    color: #0056b3; /* צבע כחול בינוני */
+    font-size: 18px;
+    margin-bottom: 2px; /* רווח בין פסקאות */
+    text-align: center;
+}
+
+.contact-details {
+    color: #0044cc; /* צבע כחול כהה */
+    font-size: 16px;
+    margin-top: 2px; /* רווח מעל החלק */
+    text-align: center;
+}
+
+footer .footer-paragraph {
+    color: #ff0000;
+    font-size: 16px;
+    text-align: center; /* ממרכז את הטקסט */
+    margin-top: 2px; /* רווח מעל החלק */
+}
+/* עיצוב כותרת ה-Services */
+h2.title {
+    color: #00a8cc; /* צבע כותרות */
+    border-bottom: 2px solid var(--dark-sea-blue); /* קו תחתון עבה בצבע כהה */
+    padding-bottom: 5px; /* רווח מתחת לכותרת */
+    margin-bottom: 2px; /* רווח תחתון לכותרת */
+    font-size: 24px; /* גודל טקסט */
+}
+
+/* עיצוב לרשימה */
+ul {
+  padding-left: 0; /* הסרת רווח שמאלי */
+  list-style-type: none; /* הסרת תבליטים */
+}
+
+li {
+    display: flex; /* הצגת אייקון וטקסט באותו שורה */
+    align-items: center; /* יישור טקסט ואייקון */
+    margin-bottom: 15px; /* רווח בין פריטים */
+    color: #00a8cc; /* צבע טקסט */
+    font-size: 18px; /* גודל טקסט */
+}
+
+li svg {
+  margin-right: 10px; /* רווח בין האייקון לטקסט */
+  color: var(--turquoise-blue); /* צבע האייקון */
+    
+}
+
+    li:hover {
+        color: #0044cc; /* שינוי צבע בעת ריחוף */
+        cursor: pointer; /* שינוי סמן העכבר */
+    }

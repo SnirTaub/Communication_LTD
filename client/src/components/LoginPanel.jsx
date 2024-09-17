@@ -9,7 +9,7 @@ import { UserContext } from "../App";
 
 const config = Config.default;
 
-const IMG_URL = "https://media.giphy.com/media/loXfQtPqLxGmbLs9h2/giphy.gif";
+const IMG_URL = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHN3dHBzODhicXFwY3BhZW91dXNxaDZ4cXhidDUxM3Jlc2t1amZueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wMpH9Ti0y1RvRVOqbc/giphy.gif";
 
 const LoginPanel = () => {
 

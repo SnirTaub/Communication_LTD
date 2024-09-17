@@ -1,7 +1,7 @@
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
 
-const IMG_URL = "https://media.giphy.com/media/DHeDr3SAM08koK2GFT/giphy.gif";
+const IMG_URL = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDVoaHYwNmt0dmhveXlyZXZweDNxMW5ueHh1cjIwcXhkODM4bGZ1cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5QhWuxxILxPd0kWoL1/giphy.gif";
 
 const ForgotPasswordPanel = () => {
   return (

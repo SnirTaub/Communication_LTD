@@ -8,7 +8,7 @@ import { UserContext } from "../App";
 
 const SUCCESS = "success";
 
-const IMG_URL = "https://media.giphy.com/media/DHeDr3SAM08koK2GFT/giphy.gif";
+const IMG_URL = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTIzM21scjE2c2hsaXRmampneDFmdDJzMHV1cTJjMTBoMml0YzNzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rXo87mS3dSDthLYr6Q/giphy.gifhttps://media.giphy.com/media/DHeDr3SAM08koK2GFT/giphy.gif";
 
 const REGISTER_API = "http://localhost:3000/register";
 
