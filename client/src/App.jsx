@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Register from "./Pages/Register/Register";
 import NavBar from "./components/NavBar";
@@ -54,8 +56,10 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/forgot_password" element={<ChangePassword />} />
+              <Route path="/change_password" element={<ChangePassword />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgot_password" element={<ForgotPassword />} />
+              <Route path={"/reset_password/:token"} element={<ResetPassword />} />
             </Routes>
           )}
         </div>

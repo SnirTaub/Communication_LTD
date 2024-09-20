@@ -18,33 +18,38 @@ const NavBar = () => {
       <Logo />
       <NavbarItem label="Home" url="/" icon={<AiFillHome />} />
 
-      {!userContextData.isLoggedIn ? (
+    {!userContextData.isLoggedIn ? (
         <>
-          <NavbarItem label="Login" url="/login" icon={<IoMdLogIn />} />
-          <NavbarItem
-            label="Register"
-            url="/register"
-            icon={<MdAccountCircle />}
-          />
-          <NavbarItem
-            label="Forgot Password"
-            url="/forgot_password"
-            icon={<BsFillShieldLockFill />}
-          />
+            <NavbarItem label="Login" url="/login" icon={<IoMdLogIn />} />
+            <NavbarItem
+                label="Register"
+                url="/register"
+                icon={<MdAccountCircle />}
+            />
+            <NavbarItem
+                label="Forgot Password"
+                url="/forgot_password"
+                icon={<BsFillShieldLockFill />}
+            />
         </>
-      ) : (
+    ) : (
         <>
-          <h1 className="user">Welcome {userContextData.email}!</h1>
-          <div
-            className="logout"
-            onClick={() => {
-              userContextData.setLoggedInStatus(false);
-            }}
-          >
-            Log out
-          </div>
+            <NavbarItem
+                label="Change Password"
+                url="/change_password"
+                icon={<BsFillShieldLockFill />}
+            />
+            <h1 className="user">Welcome {userContextData.email}!</h1>
+            <div
+                className="logout"
+                onClick={() => {
+                    userContextData.setLoggedInStatus(false);
+                }}
+            >
+                Log out
+            </div>
         </>
-      )}
+    )}
     </div>
   );
 };

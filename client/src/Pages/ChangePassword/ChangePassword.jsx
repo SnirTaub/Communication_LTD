@@ -1,9 +1,9 @@
-import ForgotPasswordPanel from "../../components/ForgotPasswordPanel";
+import ChangePasswordPanel from "../../components/ChangePasswordPanel.jsx";
 
 const ChangePassword = () => {
   return (
     <div className="container-wrap">
-      <ForgotPasswordPanel />
+      <ChangePasswordPanel />
     </div>
   );
 };

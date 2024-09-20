@@ -48,9 +48,17 @@ async function checkLoginDetails(email, password) {
   }
 }
 
+async function updatePasswordByToken(token, newPassword) {
+  await db.queryAsync(
+      `UPDATE users SET password = ? WHERE reset_token = ?`,
+      [newPassword, token]
+  );
+}
+
 module.exports = {
   getAll,
   checkLoginDetails,
   insertUser,
-  getUserByEmail
+  getUserByEmail,
+  updatePasswordByToken
 };
