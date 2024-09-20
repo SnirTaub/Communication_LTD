@@ -12,28 +12,27 @@ async function forgotPassword(req, res) {
         return res.status(404).send({ message: "User not found." });
     }
 
-    // Generate a random token
     const token = crypto.randomBytes(20).toString('hex');
 
-    // Save the token to the user record or a separate password reset table
-    // Implement token storage logic if necessary (e.g., set expiration time)
+    const hashedToken = crypto.createHash('sha1').update(token).digest('hex');
 
     // Configure the API client
     const defaultClient = SibApiV3Sdk.ApiClient.instance;
     const apiKey = defaultClient.authentications['api-key'];
-    apiKey.apiKey = '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'; // Replace with your actual API key
+    apiKey.apiKey = '<YOUR_API_KEY>';
 
     const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
     // Create email parameters
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-    sendSmtpEmail.sender = { email: "snirtaub@gmail.com", name: "Communication LTD" }; // Update with your name
+    sendSmtpEmail.sender = { email: "snirtaub@gmail.com", name: "Communication LTD" };
     sendSmtpEmail.to = [{ email: email }];
     sendSmtpEmail.subject = "Password Reset Request";
     sendSmtpEmail.htmlContent = `
         <p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
         <p>Please click on the following link to reset your password:</p>
-        <a href="http://localhost:5173/reset_password/${token}">Reset Password</a>
+        <a href="http://localhost:5173/reset_password/${hashedToken}">Reset Password</a>
+        <p>${email}</p>
         <p>If you did not request this, please ignore this email.</p>
     `;
 
@@ -47,9 +46,9 @@ async function forgotPassword(req, res) {
 }
 
 async function resetPassword(req, res) {
-    const { token } = req.params;
-    const { newPassword } = req.body;
 
+    const { newPassword } = req.body;
+    const email = "snirtaub@gmail.com";
     // Here you should validate the token and check its expiration
     // For simplicity, let's assume you have already done that
 
@@ -57,7 +56,7 @@ async function resetPassword(req, res) {
     const hashedPassword = hashPassword(newPassword);
 
     // Update the user's password in the database
-    await UserModel.updatePasswordByToken(token, hashedPassword);
+    await UserModel.updatePasswordByEmail(email, hashedPassword);
 
     res.send({ message: "Password has been reset successfully." });
 }

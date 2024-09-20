@@ -6,7 +6,8 @@ import Axios from "axios";
 const RESET_PASSWORD_API = "http://localhost:3000/reset-password"; // Update with your API endpoint
 
 const ResetPasswordPanel = () => {
-    const [token, setToken] = useState(""); // Store token from URL path
+    const [token, setToken] = useState("");
+    const [email, setEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [error, setError] = useState("");
@@ -15,7 +16,7 @@ const ResetPasswordPanel = () => {
     // Effect to get the token from the URL path
     useEffect(() => {
         const pathParts = window.location.pathname.split("/");
-        const tokenFromURL = pathParts[pathParts.length - 1]; // Extract token from URL path
+        const tokenFromURL = pathParts[pathParts.length - 1];
         if (tokenFromURL) {
             setToken(tokenFromURL);
         }
@@ -31,7 +32,7 @@ const ResetPasswordPanel = () => {
         }
 
         try {
-            const response = await Axios.post(`${RESET_PASSWORD_API}/${token}`, { newPassword });
+            const response = await Axios.post(`${RESET_PASSWORD_API}/${token}`, { newPassword, email });
             setSuccess(response.data.message || "Password reset successfully.");
         } catch (err) {
             setError("Error resetting password. Please try again.");
