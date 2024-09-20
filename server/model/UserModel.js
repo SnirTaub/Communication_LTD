@@ -48,10 +48,10 @@ async function checkLoginDetails(email, password) {
   }
 }
 
-async function updatePasswordByEmail(email, newPassword) {
+async function updatePasswordByEmail(userEmail, newPassword) {
   await db.queryAsync(
-      `UPDATE users SET password = ? WHERE reset_token = ?`,
-      [newPassword, email]
+      `UPDATE users SET password = ? WHERE email = ?`,
+      [newPassword, userEmail]
   );
 }
 
