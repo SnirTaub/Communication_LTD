@@ -4,12 +4,12 @@ const db = require("../DbConnector");
 
 async function getUserByEmail(email) {
   let results = await db.queryAsync(
-    `
-    SELECT * FROM users WHERE email = ? LIMIT 1;
+      `
+    SELECT * FROM users WHERE LOWER(email) = LOWER(?) LIMIT 1;
     `, [email]
-  )
+  );
 
-  return results
+  return results;
 }
 
 async function insertUser(formData) {

@@ -53,12 +53,6 @@ const RegisterPanel = () => {
               setFormData({ ...formData, email: e.target.value })
             }
           />
-          {/* <InputField
-            fieldName="Username"
-            onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
-            }
-          /> */}
           <InputField
             fieldName="Password"
             hide

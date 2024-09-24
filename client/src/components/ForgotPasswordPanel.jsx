@@ -1,7 +1,9 @@
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
+import { isValidEmail } from "../helpers";
 import { useState } from "react";
 import Axios from "axios";
+
 
 const IMG_URL = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDVoaHYwNmt0dmhveXlyZXZweDNxMW5ueHh1cjIwcXhkODM4bGZ1cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5QhWuxxILxPd0kWoL1/giphy.gif";
 
@@ -12,16 +14,11 @@ const ForgotPasswordPanel = () => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    const validateEmail = (email) => {
-        // Simple email validation regex pattern
-        return /\S+@\S+\.\S+/.test(email);
-    };
-
     const handleForgotPassword = async () => {
         setError("");
         setSuccess("");
 
-        if (!validateEmail(email)) {
+        if (!isValidEmail(email)) {
             setError("Please enter a valid email address.");
             return;
         }

@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from "react";
-import InputField from "./InputField"; // Assuming you have this component
-import SubmitButton from "./SubmitButton"; // Assuming you have this component
+import React, { useState, useEffect, useContext } from "react";
+import InputField from "./InputField";
+import SubmitButton from "./SubmitButton";
+import { validateByConfig } from "../helpers";
 import Axios from "axios";
+import { UserContext } from "../App.jsx";
 
-const RESET_PASSWORD_API = "http://localhost:3000/reset-password"; // Update with your API endpoint
+const RESET_PASSWORD_API = "http://localhost:3000/reset-password";
 
 const ResetPasswordPanel = () => {
     const [token, setToken] = useState("");
-    const [email, setEmail] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [repeatPassword, setRepeatPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [formData, setFormData] = useState({
+        password: "",
+        repeatPassword: "",
+    });
+
+    const userContextData = useContext(UserContext);
 
     // Effect to get the token from the URL path
     useEffect(() => {
@@ -26,16 +31,18 @@ const ResetPasswordPanel = () => {
         setError("");
         setSuccess("");
 
-        if (newPassword !== repeatPassword) {
-            setError("Passwords do not match.");
+        let validationObject = validateByConfig(formData);
+        if (!validationObject.isValid) {
+            setError(validationObject.errorMsg);
             return;
         }
 
         try {
-            const response = await Axios.post(`${RESET_PASSWORD_API}/${token}`, { newPassword });
+            const response = await Axios.post(`${RESET_PASSWORD_API}/${token}`, { newPassword: formData.password });
             setSuccess(response.data.message || "Password reset successfully.");
+            userContextData.setLoggedInStatus(false);
         } catch (err) {
-            setError("Error resetting password. Please try again.");
+            setError(err.response?.data?.message || "Error resetting password. Please try again.");
         }
     };
 
@@ -49,14 +56,18 @@ const ResetPasswordPanel = () => {
                 <InputField
                     fieldName="New Password"
                     type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    hide
+                    onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                    }
                 />
                 <InputField
                     fieldName="Repeat Password"
                     type="password"
-                    value={repeatPassword}
-                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    hide
+                    onChange={(e) =>
+                        setFormData({ ...formData, repeatPassword: e.target.value })
+                    }
                 />
                 <SubmitButton onClick={handleResetPassword} buttonText="Reset Password" />
             </div>

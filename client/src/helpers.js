@@ -7,7 +7,7 @@ const containsCaptial = (data) => {
   return /[A-Z]/.test(data);
 };
 
-const isValidEmail = (data) => {
+export const isValidEmail = (data) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data);
 }
 
@@ -25,7 +25,7 @@ const isCommonPassword = (data) => {
 
 export const validateByConfig = (formData) => {
 
-  if (!isValidEmail(formData.email)) {
+  if (formData.email && !isValidEmail(formData.email)) {
     return {isValid : false, errorMsg : `email is not in correct format`};
   }
 
