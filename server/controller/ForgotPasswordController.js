@@ -2,6 +2,7 @@ const UserModel = require("../model/UserModel");
 const crypto = require("crypto");
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const { hashPassword } = require("../helpers");
+const tokens = {}; // In-memory store for tokens
 
 async function forgotPassword(req, res) {
     const { email } = req.body;
@@ -12,9 +13,9 @@ async function forgotPassword(req, res) {
         return res.status(404).send({ message: "User not found." });
     }
 
-    const token = crypto.randomBytes(20).toString('hex');
+    const hashedToken = crypto.createHash("sha1").update(email + Date.now().toString()).digest("hex");
 
-    const hashedToken = crypto.createHash('sha1').update(token).digest('hex');
+    tokens[hashedToken] = { email, expires: Date.now() + 15 * 60 * 1000 }; // 15 minutes
 
     // Configure the API client
     const defaultClient = SibApiV3Sdk.ApiClient.instance;
@@ -23,7 +24,7 @@ async function forgotPassword(req, res) {
 
     const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-    // Create email parameters
+    // Create email parameters and send the email with the hashed token
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
     sendSmtpEmail.sender = { email: "snirtaub@gmail.com", name: "Communication LTD" };
     sendSmtpEmail.to = [{ email: email }];
@@ -32,7 +33,6 @@ async function forgotPassword(req, res) {
         <p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
         <p>Please click on the following link to reset your password:</p>
         <a href="http://localhost:5173/reset_password/${hashedToken}">Reset Password</a>
-        <p>${email}</p>
         <p>If you did not request this, please ignore this email.</p>
     `;
 
@@ -47,18 +47,29 @@ async function forgotPassword(req, res) {
 
 async function resetPassword(req, res) {
 
+    const { token } = req.params;
     const { newPassword } = req.body;
-    const email = "snirtaub@gmail.com";
-    // Here you should validate the token and check its expiration
-    // For simplicity, let's assume you have already done that
 
     // Hash the new password
     const hashedPassword = hashPassword(newPassword);
 
-    // Update the user's password in the database
-    await UserModel.updatePasswordByEmail(email, hashedPassword);
+    const tokenData = tokens[token];
+    if (!tokenData || Date.now() > tokenData.expires) {
+        return res.status(400).json({ success: false, message: "Token is invalid or has expired." });
+    }
 
-    res.send({ message: "Password has been reset successfully." });
+    // Find user by email and update password
+    const user = await UserModel.getUserByEmail(tokenData.email);
+    if (!user) {
+        return res.status(404).json({ success: false, message: "User not found." });
+    }
+    // Update the user's password in the database
+    await UserModel.updatePasswordByEmail(tokenData.email, hashedPassword);
+
+    // Delete the token from the in-memory store
+    delete tokens[token];
+
+    res.status(200).json({ success: true, message: "Password reset successfully." });
 }
 
 module.exports = {

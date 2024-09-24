@@ -32,7 +32,7 @@ const ResetPasswordPanel = () => {
         }
 
         try {
-            const response = await Axios.post(`${RESET_PASSWORD_API}/${token}`, { newPassword, email });
+            const response = await Axios.post(`${RESET_PASSWORD_API}/${token}`, { newPassword });
             setSuccess(response.data.message || "Password reset successfully.");
         } catch (err) {
             setError("Error resetting password. Please try again.");
